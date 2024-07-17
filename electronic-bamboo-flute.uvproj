@@ -295,7 +295,7 @@
             <WarningLevel>2</WarningLevel>
             <DataOverlaying>1</DataOverlaying>
             <OverlayString></OverlayString>
-            <MiscControls></MiscControls>
+            <MiscControls>REMOVEUNUSED</MiscControls>
             <DisableWarningNumbers></DisableWarningNumbers>
             <LinkerCmdFile></LinkerCmdFile>
             <Assign></Assign>
@@ -368,6 +368,16 @@
               <FileName>STC32G_NVIC.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\library\STC32G_NVIC.c</FilePath>
+            </File>
+            <File>
+              <FileName>STC32G_ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\library\STC32G_ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>STC32G_PWM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\library\STC32G_PWM.c</FilePath>
             </File>
           </Files>
         </Group>
