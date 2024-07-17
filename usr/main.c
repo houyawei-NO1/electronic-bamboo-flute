@@ -11,9 +11,12 @@
 /* 如果要在程序中使用此代码,请在程序中注明使用了STC的资料及程序            */
 /*---------------------------------------------------------------------*/
 
-#include	"\..\library\config.h"
+//#include	"\..\library\config.h"
 #include	"\..\library\STC32G_GPIO.h"
 #include	"\..\library\STC32G_Delay.h"
+#include	"\..\library\STC32G_UART.h"
+#include	"\..\library\STC32G_NVIC.h"//中断
+#include	"\..\library\STC32G_Switch.h"//功能脚切换
 
 /***************	功能说明	****************
 
@@ -44,8 +47,22 @@ u8 ledIndex;
 //========================================================================
 void GPIO_config(void)
 {
-	P4_MODE_IO_PU(GPIO_Pin_0);			//P4.0设置为准双向口
-	P6_MODE_IO_PU(GPIO_Pin_All);		//P6 设置为准双向口
+	P3_MODE_IO_PU(GPIO_Pin_5);			//P3.5设置为准双向口
+	P3_MODE_IO_PU(GPIO_Pin_4);		//P3.4 设置为准双向口
+}
+
+/***************  串口初始化函数 *****************/
+void	UART_config(void)
+{
+	COMx_InitDefine		COMx_InitStructure;					//结构定义
+	COMx_InitStructure.UART_Mode      = UART_8bit_BRTx;		//模式,   UART_ShiftRight,UART_8bit_BRTx,UART_9bit,UART_9bit_BRTx
+	COMx_InitStructure.UART_BRT_Use   = BRT_Timer1;			//选择波特率发生器, BRT_Timer1,BRT_Timer2 (注意: 串口2固定使用BRT_Timer2)
+	COMx_InitStructure.UART_BaudRate  = 115200ul;			//波特率,     110 ~ 115200
+	COMx_InitStructure.UART_RxEnable  = ENABLE;				//接收允许,   ENABLE或DISABLE
+	UART_Configuration(UART1, &COMx_InitStructure);		//初始化串口 UART1,UART2,UART3,UART4
+	NVIC_UART1_Init(ENABLE,Priority_1);		//中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0,Priority_1,Priority_2,Priority_3
+
+	UART1_SW(UART1_SW_P30_P31);		//UART1_SW_P30_P31,UART1_SW_P36_P37,UART1_SW_P16_P17,UART1_SW_P43_P44
 }
 
 //========================================================================
@@ -62,17 +79,22 @@ void main(void)
 	CKCON = 0;      //提高访问XRAM速度
 
 	GPIO_config();
-	P40 = 0;		//打开实验板LED电源
+	P35 = 0;		
+	UART_config();
+	EA = 1;
+
+	printf("STC32G AD to UART Test Programme!\r\n");	//UART发送一个字符串
 	
 	while(1)
 	{
-		delay_ms(250);
-		P6 = ~ledNum[ledIndex];	//输出低驱动
-		ledIndex++;
-		if(ledIndex > 7)
-		{
-			ledIndex = 0;
-		}
+		delay_ms(1000);
+		P34 = ~P34;	//输出低驱动
+		printf("STC32G AD to UART Test Programme!\r\n");	//UART发送一个字符串
+//		ledIndex++;
+//		if(ledIndex > 7)
+//		{
+//			ledIndex = 0;
+//		}
 	}
 }
 
