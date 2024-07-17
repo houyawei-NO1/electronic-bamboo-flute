@@ -1,0 +1,7 @@
+".\Objects\main.obj",
+".\Objects\STC32G_GPIO.obj",
+".\Objects\STC32G_Delay.obj" 
+TO ".\Objects\electronic-bamboo-flute" 
+PRINT(".\Listings\electronic-bamboo-flute.map") CASE 
+CLASSES (EDATA (0x0-0xFFF), 
+HDATA (0x0-0xFFF)) 
