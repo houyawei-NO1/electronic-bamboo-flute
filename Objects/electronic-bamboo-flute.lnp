@@ -1,4 +1,6 @@
 ".\Objects\main.obj",
+".\Objects\gpio_interrupt.obj",
+".\Objects\ebf_control.obj",
 ".\Objects\STC32G_GPIO.obj",
 ".\Objects\STC32G_Delay.obj",
 ".\Objects\STC32G_UART.obj",

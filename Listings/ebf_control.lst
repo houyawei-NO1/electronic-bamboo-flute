@@ -1,0 +1,130 @@
+C251 COMPILER V5.60.0,  ebf_control                                                        19/07/24  15:36:43  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE ebf_control
+OBJECT MODULE PLACED IN .\Objects\ebf_control.obj
+COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE usr\ebf_control.c XSMALL INTR2 BROWSE DEBUG PRINT(.\Listings\ebf_contr
+                    -ol.lst) OBJECT(.\Objects\ebf_control.obj) 
+
+stmt  level    source
+
+    1          #include "ebf_control.h"
+    2          
+    3          void    controlbeep(void)
+    4          {
+    5   1      
+    6   1              if( low_f & (!high_f) & six_f & five_f & four_f & three_f & two_f & one_f) //diyin sol
+    7   1                      {
+    8   2                      PWM_config(Sound_Fre[0][4]);
+    9   2                      printf("diyin sol\r\n");
+   10   2                      }
+   11   1              if( low_f & (!high_f) & six_f & five_f & four_f & three_f & two_f & (!one_f)) //diyin la
+   12   1                      {
+   13   2                      PWM_config(Sound_Fre[0][5]);
+   14   2                      printf("diyin 2\r\n");
+   15   2                      }
+   16   1              if( low_f & (!high_f) & six_f & five_f & four_f & three_f & (!two_f) & (!one_f)) //diyin si
+   17   1                      {
+   18   2                      PWM_config(Sound_Fre[0][6]);
+   19   2                      printf("diyin 3\r\n");
+   20   2                      }
+   21   1              
+   22   1              if( (!low_f) & (!high_f) & six_f & five_f & four_f & (!three_f) & (!two_f) & (!one_f)) //zhongyin do
+   23   1                      {
+   24   2                      PWM_config(Sound_Fre[1][0]);
+   25   2                      printf("yin 1\r\n");
+   26   2                      }
+   27   1              if( (!low_f) & (!high_f) & six_f & five_f & (!four_f) & (!three_f) & (!two_f) & (!one_f)) //zhongyin re
+   28   1                      {
+   29   2                      PWM_config(Sound_Fre[1][1]);
+   30   2                      printf("yin 2\r\n");
+   31   2                      }
+   32   1              if( (!low_f) & (!high_f) & six_f & (!five_f) & (!four_f) & (!three_f) & (!two_f) & (!one_f)) //zhongyin 
+             -mi
+   33   1                      {
+   34   2                      PWM_config(Sound_Fre[1][2]);  
+   35   2                      printf("yin 3\r\n");
+   36   2                      }
+   37   1              if( (!low_f) & (!high_f) & (!six_f) & five_f & four_f & (!three_f) & (!two_f) & (!one_f)) //zhongyin fa
+   38   1                      {
+   39   2                      PWM_config(Sound_Fre[1][3]);  
+   40   2                      printf("yin 4\r\n");
+   41   2                      }
+   42   1              if( (!low_f) & (!high_f) & six_f & five_f & four_f & three_f & two_f & one_f) //zhongyin sol
+   43   1                      {
+   44   2                      PWM_config(Sound_Fre[1][4]);
+   45   2                      printf("yin 5\r\n");
+   46   2                      }
+   47   1              if( (!low_f) & (!high_f) & six_f & five_f & four_f & three_f & two_f & (!one_f)) //zhongyin la
+   48   1                      {
+   49   2                      PWM_config(Sound_Fre[0][5]);
+   50   2                      printf("yin 6\r\n");
+   51   2                      }
+   52   1              if( (!low_f) & (!high_f) & six_f & five_f & four_f & three_f & (!two_f) & (!one_f)) //zhongyin si
+   53   1                      {
+   54   2                      PWM_config(Sound_Fre[0][6]);
+   55   2                      printf("yin 7\r\n");
+   56   2                      }
+   57   1              
+C251 COMPILER V5.60.0,  ebf_control                                                        19/07/24  15:36:43  PAGE 2   
+
+   58   1              if( (!low_f) & high_f & six_f & five_f & four_f & (!three_f) & (!two_f) & (!one_f)) //gaoyiin do
+   59   1                      {
+   60   2                      PWM_config(Sound_Fre[2][0]);
+   61   2                      printf("gaoyin 1\r\n");
+   62   2                      }
+   63   1              if( (!low_f) & high_f & six_f & five_f & (!four_f) & (!three_f) & (!two_f) & (!one_f)) //gaoyiin re
+   64   1                      {
+   65   2                      PWM_config(Sound_Fre[2][1]);
+   66   2                      printf("gaoyin 2\r\n");
+   67   2                      }
+   68   1              if( (!low_f) & high_f & six_f & (!five_f) & (!four_f) & (!three_f) & (!two_f) & (!one_f)) //gaoyiin mi
+   69   1                      {
+   70   2                      PWM_config(Sound_Fre[2][2]);  
+   71   2                      printf("gaoyin 3\r\n");
+   72   2                      }
+   73   1              if( (!low_f) & high_f & (!six_f) & five_f & four_f & (!three_f) & (!two_f) & one_f) //gaoyiin fa
+   74   1                      {
+   75   2                      PWM_config(Sound_Fre[2][3]);  
+   76   2                      printf("gaoyin 4\r\n");
+   77   2                      }
+   78   1              if( (!low_f) & high_f & six_f & five_f & four_f & three_f & two_f & one_f) //gaoyiin sol
+   79   1                      {
+   80   2                      PWM_config(Sound_Fre[2][4]);
+   81   2                      printf("gaoyin 5\r\n");
+   82   2                      }
+   83   1              if( (!low_f) & high_f & six_f & five_f & (!four_f) & three_f & two_f & (!one_f)) //gaoyiin la
+   84   1                      {
+   85   2                      PWM_config(Sound_Fre[2][5]);
+   86   2                      printf("gaoyin 6\r\n");
+   87   2                      }
+   88   1              if( (!low_f) & high_f & six_f & (!five_f) & four_f & three_f & (!two_f) & one_f) //gaoyiin si
+   89   1                      {
+   90   2                      PWM_config(Sound_Fre[2][6]);
+   91   2                      printf("gaoyin 7\r\n");
+   92   2                      }
+   93   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1839     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       165     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

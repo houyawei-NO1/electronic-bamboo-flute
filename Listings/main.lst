@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               17/07/24  17:50:12  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               19/07/24  15:36:43  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -8,7 +8,7 @@ COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE usr\main.c XSMALL INTR2 BROWSE
 
 stmt  level    source
 
-    1          //#include      "\..\library\config.h"
+    1          #include        "\..\library\config.h"
     2          #include        "\..\library\STC32G_GPIO.h"
     3          #include        "\..\library\STC32G_Delay.h"
     4          #include        "\..\library\STC32G_UART.h"
@@ -16,161 +16,176 @@ stmt  level    source
     6          #include        "\..\library\STC32G_PWM.h"
     7          #include        "\..\library\STC32G_NVIC.h"//中断
     8          #include        "\..\library\STC32G_Switch.h"//功能脚切换
-    9          
-   10          //下载时, 选择时钟 24MHz (可以在配置文件"config.h"中修改).
+    9          #include   "gpio_interrupt.h"
+   10          //#include   "ebf_control.h"
    11          
-   12          /*************  本地常量声明    **************/
+   12          //下载时, 选择时钟 12MHz (可以在配置文件"config.h"中修改).
    13          
-   14          
-   15          /*************  本地变量声明    **************/
-   16          
-   17          PWMx_Duty PWMA_Duty;
-   18          bit PWM1_Flag;
-   19          bit PWM2_Flag;
-   20          bit PWM3_Flag;
-   21          bit PWM4_Flag;
-   22          
-   23          /*************  本地函数声明    **************/
-   24          void    PWM_config(void);
-   25          void    UART_config(void);
-   26          void    GPIO_config(void);
-   27          /*************  外部函数和变量声明 *****************/
-   28          
-   29          
-   30          
-   31          
-   32          
-   33          
-   34          //========================================================================
-   35          // 函数: main
-   36          // 描述: 用户应用程序.
-   37          // 参数: None.
-   38          // 返回: None.
-   39          // 版本: V1.0, 2020-09-23
-   40          //========================================================================
-   41          void main(void)
-   42          {
-   43   1              WTST = 0;               //设置程序指令延时参数，赋值为0可将CPU执行指令的速度设置为最快
-   44   1              EAXSFR();               //扩展SFR(XFR)访问使能 
-   45   1              CKCON = 0;      //提高访问XRAM速度
-   46   1      
-   47   1              GPIO_config();
-   48   1              P35 = 0;                
-   49   1              UART_config();
-   50   1              PWM_config();
-   51   1              EA = 1;
-   52   1      
-   53   1              printf("STC32G AD to UART Test Programme!\r\n");        //UART发送一个字符串
-   54   1              
-   55   1              while(1)
-   56   1              {
-   57   2                      delay_ms(1000);
-   58   2                      P34 = ~P34;     //输出低驱动
-C251 COMPILER V5.60.0,  main                                                               17/07/24  17:50:12  PAGE 2   
+   14          /*************  本地常量声明    **************/
+   15          
+   16          u16 code Sound_Fre[4][7]=          //声音库
+   17          {                           
+   18                  45627        ,40677        ,36253        ,34285        ,30534        ,27210        ,24242,//低音
+   19                  22900        ,20408        ,18181        ,17167        ,15286        ,13620        ,12133,//中音
+   20                  11450        ,10204        ,9022         ,8583         ,7648         ,6814         ,6069,//高音
+   21                  5730         ,5106         ,4548         ,4293         ,3825         ,3408         ,3036,//超高音
+   22          } ;        
+   23          
+   24          
+   25          /*************  本地变量声明    **************/
+   26          
+   27          PWMx_Duty PWMA_Duty;
+   28          bit PWM1_Flag;
+   29          u8 i;
+   30          u8 j;
+   31          bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
+   32          /*************  本地函数声明    **************/
+   33          void    PWM_config(u16 Fre);
+   34          void    UART_config(void);
+   35          void    GPIO_config(void);
+   36          void    controlbeep(void);
+   37          /*************  外部函数和变量声明 *****************/
+   38          
+   39          
+   40          
+   41          
+   42          
+   43          
+   44          //========================================================================
+   45          // 函数: main
+   46          // 描述: 用户应用程序.
+   47          // 参数: None.
+   48          // 返回: None.
+   49          // 版本: V1.0, 2020-09-23
+   50          //========================================================================
+   51          void main(void)
+   52          {
+   53   1              WTST = 0;               //设置程序指令延时参数，赋值为0可将CPU执行指令的速度设置为最快
+   54   1              EAXSFR();               //扩展SFR(XFR)访问使能 
+   55   1              CKCON = 0;      //提高访问XRAM速度
+   56   1      
+   57   1              GPIO_config();
+   58   1              GPIO_INT_Config(GPIO_P0, INT_FALL, Pin0 | Pin1 | Pin2 | Pin3);  
+C251 COMPILER V5.60.0,  main                                                               19/07/24  15:36:43  PAGE 2   
 
-   59   2                      printf("STC32G AD to UART Test Programme!\r\n");        //UART发送一个字符串
-   60   2      
-   61   2              }
-   62   1      }
-   63          
-   64          //========================================================================
-   65          // 函数: GPIO_config
-   66          // 描述: 用户初始化程序.
-   67          // 参数: None.
-   68          // 返回: None.
-   69          // 版本: V1.0, 2020-09-28
-   70          //========================================================================
-   71          void GPIO_config(void)
-   72          {
-   73   1              P3_MODE_IO_PU(GPIO_Pin_5);                      //P3.5设置为准双向口
-   74   1              P3_MODE_IO_PU(GPIO_Pin_4);              //P3.4 设置为准双向口
-   75   1      }
-   76          
-   77          /***************  串口初始化函数 *****************/
-   78          void    UART_config(void)
-   79          {
-   80   1              COMx_InitDefine         COMx_InitStructure;                                     //结构定义
-   81   1              COMx_InitStructure.UART_Mode      = UART_8bit_BRTx;             //模式,   UART_ShiftRight,UART_8bit_BRTx,UART_9bit,
+   59   1              GPIO_INT_Config(GPIO_P2, INT_FALL, Pin4 | Pin5 | Pin6 | Pin7);
+   60   1              //普通IO中断配置函数, 中断模式(只取其一): INT_FALL, INT_RISE, INT_LOW, INT_HIGH. 分别是 上升沿 下降沿 低
+             -电平  高电平 中断.
+   61   1              P35 = 0;                
+   62   1              UART_config();
+   63   1              PWM_config(45627);
+   64   1              EA = 1;
+   65   1      
+   66   1              printf("STC32G AD to UART Test Programme!\r\n");        //UART发送一个字符串
+   67   1              one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
+   68   1              
+   69   1              while(1)
+   70   1              {
+   71   2                      delay_ms(200);
+   72   2      //              P34 = ~P34;     //输出低驱动
+   73   2      //              printf("STC32G AD to UART Test Programme!\r\n");        //UART发送一个字符串
+   74   2      //              PWMA_Duty.PWM1_Duty = 128;
+   75   2      //              UpdatePwm(PWMA, &PWMA_Duty);
+   76   2                      
+   77   2      //              printf("P03:%hd\r\n",P03);
+   78   2      //              printf("P02:%hd\r\n",P02);
+   79   2      //              printf("P01:%hd\r\n",P01);
+   80   2      //              printf("P00:%hd\r\n",P00);
+   81   2      //              printf("P27:%hd\r\n",P27);
+   82   2      //              printf("P26:%hd\r\n",P26);
+   83   2      //              printf("P25:%hd\r\n",P25);
+   84   2      //              printf("P24:%hd\r\n",P24);
+   85   2      //              for(i=0;i<=3;i++)
+   86   2      //                      {
+   87   2      //                      for(j=0;j<=6;j++)
+   88   2      //                              {
+   89   2      //                              PWM_config(Sound_Fre[i][j]);
+   90   2      //                              printf("i:%hd,j:%hd,Fre:%ld\r\n",i,j,Sound_Fre[i][j]);
+   91   2      //                              delay_ms(5000);
+   92   2      //                              }
+   93   2      //                      }
+   94   2                      controlbeep();
+   95   2                      one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
+   96   2      
+   97   2              }
+   98   1      }
+   99          
+  100          //========================================================================
+  101          // 函数: GPIO_config
+  102          // 描述: 用户初始化程序.
+  103          // 参数: None.
+  104          // 返回: None.
+  105          // 版本: V1.0, 2020-09-28
+  106          //========================================================================
+  107          void GPIO_config(void)
+  108          {
+  109   1              P3_MODE_IO_PU(GPIO_Pin_5);                      //P3.5设置为准双向口
+  110   1              P3_MODE_IO_PU(GPIO_Pin_4);              //P3.4 设置为准双向口
+  111   1              
+  112   1              P0_MODE_IO_PU(GPIO_Pin_All);                    //P0 设置为准双向口
+  113   1              P2_MODE_IO_PU(GPIO_Pin_All);                    //P2 设置为准双向口
+  114   1      //（启动PWM功能后输出脚自动设置为推挽输出模式）
+  115   1      }
+  116          
+  117          /***************  串口初始化函数 *****************/
+  118          void    UART_config(void)
+  119          {
+  120   1              COMx_InitDefine         COMx_InitStructure;                                     //结构定义
+  121   1              COMx_InitStructure.UART_Mode      = UART_8bit_BRTx;             //模式,   UART_ShiftRight,UART_8bit_BRTx,UART_9bit,
              -UART_9bit_BRTx
-   82   1              COMx_InitStructure.UART_BRT_Use   = BRT_Timer1;                 //选择波特率发生器, BRT_Timer1,BRT_Timer2 (注意: 串口2
-             -固定使用BRT_Timer2)
-   83   1              COMx_InitStructure.UART_BaudRate  = 115200ul;                   //波特率,     110 ~ 115200
-   84   1              COMx_InitStructure.UART_RxEnable  = ENABLE;                             //接收允许,   ENABLE或DISABLE
-   85   1              UART_Configuration(UART1, &COMx_InitStructure);         //初始化串口 UART1,UART2,UART3,UART4
-   86   1              NVIC_UART1_Init(ENABLE,Priority_1);             //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0,Priority_1,Pr
-             -iority_2,Priority_3
-   87   1      
-   88   1              UART1_SW(UART1_SW_P30_P31);             //UART1_SW_P30_P31,UART1_SW_P36_P37,UART1_SW_P16_P17,UART1_SW_P43_P44
-   89   1      }
-   90          
-   91          /***************  PWM初始化函数 *****************/
-   92          void    PWM_config(void)
-   93          {
-   94   1              PWMx_InitDefine         PWMx_InitStructure;
-   95   1              
-   96   1              PWMA_Duty.PWM1_Duty = 128;
-   97   1              PWMA_Duty.PWM2_Duty = 256;
-   98   1              PWMA_Duty.PWM3_Duty = 512;
-   99   1              PWMA_Duty.PWM4_Duty = 1024;
-  100   1      
-  101   1              PWMx_InitStructure.PWM_Mode    =        CCMRn_PWM_MODE1;        //模式,         CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_IN
-             -VALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-  102   1              PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM1_Duty;   //PWM占空比时间, 0~Period
-  103   1              PWMx_InitStructure.PWM_EnoSelect   = ENO1P | ENO1N;     //输出通道选择, ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,
-             -ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-  104   1              PWM_Configuration(PWM1, &PWMx_InitStructure);                           //初始化PWM1
-  105   1      
-  106   1              PWMx_InitStructure.PWM_Mode    =        CCMRn_PWM_MODE1;        //模式,         CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_IN
-             -VALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-  107   1              PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM2_Duty;   //PWM占空比时间, 0~Period
-  108   1              PWMx_InitStructure.PWM_EnoSelect   = ENO2P | ENO2N;     //输出通道选择, ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,
-             -ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-  109   1              PWM_Configuration(PWM2, &PWMx_InitStructure);                           //初始化PWM2
-  110   1      
-  111   1              PWMx_InitStructure.PWM_Mode    =        CCMRn_PWM_MODE1;        //模式,         CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_IN
-             -VALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-  112   1              PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM3_Duty;   //PWM占空比时间, 0~Period
-  113   1              PWMx_InitStructure.PWM_EnoSelect   = ENO3P | ENO3N;     //输出通道选择, ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,
-             -ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-  114   1              PWM_Configuration(PWM3, &PWMx_InitStructure);                           //初始化PWM3
-  115   1      
-C251 COMPILER V5.60.0,  main                                                               17/07/24  17:50:12  PAGE 3   
+  122   1              COMx_InitStructure.UART_BRT_Use   = BRT_Timer1;                 //选择波特率发生器, BRT_Timer1,BRT_Timer2 (注意: 串口2
+C251 COMPILER V5.60.0,  main                                                               19/07/24  15:36:43  PAGE 3   
 
-  116   1              PWMx_InitStructure.PWM_Mode    =        CCMRn_PWM_MODE1;        //模式,         CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_IN
+             -固定使用BRT_Timer2)
+  123   1              COMx_InitStructure.UART_BaudRate  = 115200ul;                   //波特率,     110 ~ 115200
+  124   1              COMx_InitStructure.UART_RxEnable  = ENABLE;                             //接收允许,   ENABLE或DISABLE
+  125   1              UART_Configuration(UART1, &COMx_InitStructure);         //初始化串口 UART1,UART2,UART3,UART4
+  126   1              NVIC_UART1_Init(ENABLE,Priority_1);             //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0,Priority_1,Pr
+             -iority_2,Priority_3
+  127   1      
+  128   1              UART1_SW(UART1_SW_P30_P31);             //UART1_SW_P30_P31,UART1_SW_P36_P37,UART1_SW_P16_P17,UART1_SW_P43_P44
+  129   1      }
+  130          
+  131          /***************  PWM初始化函数 *****************/
+  132          void    PWM_config(u16 Fre)
+  133          {
+  134   1              PWMx_InitDefine         PWMx_InitStructure;
+  135   1              
+  136   1              PWMx_InitStructure.PWM_Period   = Fre;                                                  //周期时间,   0~65535
+  137   1              PWMA_Duty.PWM1_Duty = PWMx_InitStructure.PWM_Period / 2;
+  138   1      
+  139   1              PWMx_InitStructure.PWM_Mode    =        CCMRn_PWM_MODE1;        //模式,         CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_IN
              -VALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-  117   1              PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM4_Duty;   //PWM占空比时间, 0~Period
-  118   1              PWMx_InitStructure.PWM_EnoSelect   = ENO4P | ENO4N;     //输出通道选择, ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,
-             -ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-  119   1              PWM_Configuration(PWM4, &PWMx_InitStructure);                           //初始化PWM4
-  120   1      
-  121   1              PWMx_InitStructure.PWM_Period   = 2047;                                                 //周期时间,   0~65535
-  122   1              PWMx_InitStructure.PWM_DeadTime = 0;                                                            //死区发生器设置, 0~255
-  123   1              PWMx_InitStructure.PWM_MainOutEnable= ENABLE;                           //主输出使能, ENABLE,DISABLE
-  124   1              PWMx_InitStructure.PWM_CEN_Enable   = ENABLE;                           //使能计数器, ENABLE,DISABLE
-  125   1              PWM_Configuration(PWMA, &PWMx_InitStructure);                           //初始化PWM通用寄存器,  PWMA,PWMB
-  126   1      
-  127   1              PWM1_USE_P60P61();
-  128   1              PWM2_USE_P62P63();
-  129   1              PWM3_USE_P64P65();
-  130   1              PWM4_USE_P66P67();
-  131   1      
-  132   1              NVIC_PWM_Init(PWMA,DISABLE,Priority_0);
-  133   1      }
-  134          
-  135          
+  140   1              PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM1_Duty;   //PWM占空比时间, 0~Period
+  141   1              PWMx_InitStructure.PWM_EnoSelect   = ENO1P;
+  142   1              PWM_Configuration(PWM1, &PWMx_InitStructure);                           //初始化PWM1
+  143   1      
+  144   1              PWMx_InitStructure.PWM_DeadTime = 0;                                                            //死区发生器设置, 0~255
+  145   1              PWMx_InitStructure.PWM_MainOutEnable= ENABLE;                           //主输出使能, ENABLE,DISABLE
+  146   1              PWMx_InitStructure.PWM_CEN_Enable   = ENABLE;                           //使能计数器, ENABLE,DISABLE
+  147   1              PWM_Configuration(PWMA, &PWMx_InitStructure);                           //初始化PWM通用寄存器,  PWMA,PWMB
+  148   1              
+  149   1              
+  150   1              PWM1_USE_P10P11();
+  151   1      
+  152   1              NVIC_PWM_Init(PWMA,DISABLE,Priority_0);
+  153   1      
+  154   1      }
+  155          
+  156          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       352     ------
+  code size            =       314     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        16         18
-  bit size             =         4     ------
+  edata size           =        18         18
+  bit size             =         9     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------

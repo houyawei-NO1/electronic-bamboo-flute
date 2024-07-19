@@ -1296,6 +1296,110 @@ typedef struct TAG_PWM_STRUCT
 #define NOP40() NOP39(),NOP1()
 #define NOP(N)  NOP##N()
 
+//2024.0718houyawei添加
+#define	Pin0		0x01	//IO引脚 Px.0
+#define	Pin1		0x02	//IO引脚 Px.1
+#define	Pin2		0x04	//IO引脚 Px.2
+#define	Pin3		0x08	//IO引脚 Px.3
+#define	Pin4		0x10	//IO引脚 Px.4
+#define	Pin5		0x20	//IO引脚 Px.5
+#define	Pin6		0x40	//IO引脚 Px.6
+#define	Pin7		0x80	//IO引脚 Px.7
+#define	PinAll		0xFF	//IO所有引脚
+
+#define	GPIO_Pin_0		0x01	//IO引脚 Px.0
+#define	GPIO_Pin_1		0x02	//IO引脚 Px.1
+#define	GPIO_Pin_2		0x04	//IO引脚 Px.2
+#define	GPIO_Pin_3		0x08	//IO引脚 Px.3
+#define	GPIO_Pin_4		0x10	//IO引脚 Px.4
+#define	GPIO_Pin_5		0x20	//IO引脚 Px.5
+#define	GPIO_Pin_6		0x40	//IO引脚 Px.6
+#define	GPIO_Pin_7		0x80	//IO引脚 Px.7
+#define	GPIO_Pin_All	0xFF	//IO所有引脚
+
+#define	GPIO_PullUp		0	//上拉准双向口
+#define	GPIO_HighZ		1	//浮空输入
+#define	GPIO_OUT_OD		2	//开漏输出
+#define	GPIO_OUT_PP		3	//推挽输出
+#define	GPIO_P0			0		//
+#define	GPIO_P1			1
+#define	GPIO_P2			2
+#define	GPIO_P3			3
+#define	GPIO_P4			4
+#define	GPIO_P5			5
+#define	GPIO_P6			6
+#define	GPIO_P7			7
+
+#define P0INTE      (*(unsigned char volatile far *)0x7efd00)	/* P0口中断使能寄存器 */
+#define P1INTE      (*(unsigned char volatile far *)0x7efd01)	/* P1口中断使能寄存器 */
+#define P2INTE      (*(unsigned char volatile far *)0x7efd02)	/* P2口中断使能寄存器 */
+#define P3INTE      (*(unsigned char volatile far *)0x7efd03)	/* P3口中断使能寄存器 */
+#define P4INTE      (*(unsigned char volatile far *)0x7efd04)	/* P4口中断使能寄存器 */
+#define P5INTE      (*(unsigned char volatile far *)0x7efd05)	/* P5口中断使能寄存器 */
+#define P6INTE      (*(unsigned char volatile far *)0x7efd06)	/* P6口中断使能寄存器 */
+#define P7INTE      (*(unsigned char volatile far *)0x7efd07)	/* P7口中断使能寄存器 */
+
+#define P0INTF      (*(unsigned char volatile far *)0x7efd10)	/* P0口中断标志寄存器 */
+#define P1INTF      (*(unsigned char volatile far *)0x7efd11)	/* P1口中断标志寄存器 */
+#define P2INTF      (*(unsigned char volatile far *)0x7efd12)	/* P2口中断标志寄存器 */
+#define P3INTF      (*(unsigned char volatile far *)0x7efd13)	/* P3口中断标志寄存器 */
+#define P4INTF      (*(unsigned char volatile far *)0x7efd14)	/* P4口中断标志寄存器 */
+#define P5INTF      (*(unsigned char volatile far *)0x7efd15)	/* P5口中断标志寄存器 */
+#define P6INTF      (*(unsigned char volatile far *)0x7efd16)	/* P6口中断标志寄存器 */
+#define P7INTF      (*(unsigned char volatile far *)0x7efd17)	/* P7口中断标志寄存器 */
+
+#define P0IM0       (*(unsigned char volatile far *)0x7efd20)	/* P0口中断模式寄存器0 */
+#define P1IM0       (*(unsigned char volatile far *)0x7efd21)	/* P1口中断模式寄存器0 */
+#define P2IM0       (*(unsigned char volatile far *)0x7efd22)	/* P2口中断模式寄存器0 */
+#define P3IM0       (*(unsigned char volatile far *)0x7efd23)	/* P3口中断模式寄存器0 */
+#define P4IM0       (*(unsigned char volatile far *)0x7efd24)	/* P4口中断模式寄存器0 */
+#define P5IM0       (*(unsigned char volatile far *)0x7efd25)	/* P5口中断模式寄存器0 */
+#define P6IM0       (*(unsigned char volatile far *)0x7efd26)	/* P6口中断模式寄存器0 */
+#define P7IM0       (*(unsigned char volatile far *)0x7efd27)	/* P7口中断模式寄存器0 */
+
+#define P0IM1       (*(unsigned char volatile far *)0x7efd30)	/* P0口中断模式寄存器1 */
+#define P1IM1       (*(unsigned char volatile far *)0x7efd31)	/* P1口中断模式寄存器1 */
+#define P2IM1       (*(unsigned char volatile far *)0x7efd32)	/* P2口中断模式寄存器1 */
+#define P3IM1       (*(unsigned char volatile far *)0x7efd33)	/* P3口中断模式寄存器1 */
+#define P4IM1       (*(unsigned char volatile far *)0x7efd34)	/* P4口中断模式寄存器1 */
+#define P5IM1       (*(unsigned char volatile far *)0x7efd35)	/* P5口中断模式寄存器1 */
+#define P6IM1       (*(unsigned char volatile far *)0x7efd36)	/* P6口中断模式寄存器1 */
+#define P7IM1       (*(unsigned char volatile far *)0x7efd37)	/* P7口中断模式寄存器1 */
+
+#define INTE_0       0x01	/* 使能Px.0口中断功能 */
+#define INTE_1       0x02	/* 使能Px.1口中断功能 */
+#define INTE_2       0x04	/* 使能Px.2口中断功能 */
+#define INTE_3       0x08	/* 使能Px.3口中断功能 */
+#define INTE_4       0x10	/* 使能Px.4口中断功能 */
+#define INTE_5       0x20	/* 使能Px.5口中断功能 */
+#define INTE_6       0x40	/* 使能Px.6口中断功能 */
+#define INTE_7       0x80	/* 使能Px.7口中断功能 */
+
+#define INTF_0       0x01	/* 使能Px.0口中断标志 */
+#define INTF_1       0x02	/* 使能Px.1口中断标志 */
+#define INTF_2       0x04	/* 使能Px.2口中断标志 */
+#define INTF_3       0x08	/* 使能Px.3口中断标志 */
+#define INTF_4       0x10	/* 使能Px.4口中断标志 */
+#define INTF_5       0x20	/* 使能Px.5口中断标志 */
+#define INTF_6       0x40	/* 使能Px.6口中断标志 */
+#define INTF_7       0x80	/* 使能Px.7口中断标志 */
+
+#define	INT_FALL	0		/* 下降沿中断   */
+#define	INT_RISE	1		/* 上升沿中断   */
+#define	INT_LOW		2		/* 低电平中断   */
+#define	INT_HIGH	3		/* 高电平中断   */
+
+#define P0WKUE      (*(unsigned char volatile far *)0x7efd40)	/* P0口中断唤醒使能寄存器 */
+#define P1WKUE      (*(unsigned char volatile far *)0x7efd41)	/* P1口中断唤醒使能寄存器 */
+#define P2WKUE      (*(unsigned char volatile far *)0x7efd42)	/* P2口中断唤醒使能寄存器 */
+#define P3WKUE      (*(unsigned char volatile far *)0x7efd43)	/* P3口中断唤醒使能寄存器 */
+#define P4WKUE      (*(unsigned char volatile far *)0x7efd44)	/* P4口中断唤醒使能寄存器 */
+#define P5WKUE      (*(unsigned char volatile far *)0x7efd45)	/* P5口中断唤醒使能寄存器 */
+#define P6WKUE      (*(unsigned char volatile far *)0x7efd46)	/* P6口中断唤醒使能寄存器 */
+#define P7WKUE      (*(unsigned char volatile far *)0x7efd47)	/* P7口中断唤醒使能寄存器 */
+
+#define PINIPL      (*(unsigned char volatile far *)0x7efd60)	/* IO口中断优先级低寄存器 */
+#define PINIPH      (*(unsigned char volatile far *)0x7efd61)	/* IO口中断优先级高寄存器 */
 
 #endif
 

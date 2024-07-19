@@ -1,4 +1,4 @@
-//#include	"\..\library\config.h"
+#include	"\..\library\config.h"
 #include	"\..\library\STC32G_GPIO.h"
 #include	"\..\library\STC32G_Delay.h"
 #include	"\..\library\STC32G_UART.h"
@@ -6,24 +6,34 @@
 #include	"\..\library\STC32G_PWM.h"
 #include	"\..\library\STC32G_NVIC.h"//中断
 #include	"\..\library\STC32G_Switch.h"//功能脚切换
+#include   "gpio_interrupt.h"
+//#include   "ebf_control.h"
 
-//下载时, 选择时钟 24MHz (可以在配置文件"config.h"中修改).
+//下载时, 选择时钟 12MHz (可以在配置文件"config.h"中修改).
 
 /*************	本地常量声明	**************/
+
+u16 code Sound_Fre[4][7]=          //声音库
+{                           
+        45627        ,40677        ,36253        ,34285        ,30534        ,27210        ,24242,//低音
+        22900        ,20408        ,18181        ,17167        ,15286        ,13620        ,12133,//中音
+        11450        ,10204        ,9022         ,8583         ,7648         ,6814         ,6069,//高音
+        5730         ,5106         ,4548         ,4293         ,3825         ,3408         ,3036,//超高音
+} ;        
 
 
 /*************	本地变量声明	**************/
 
 PWMx_Duty PWMA_Duty;
 bit PWM1_Flag;
-bit PWM2_Flag;
-bit PWM3_Flag;
-bit PWM4_Flag;
-
+u8 i;
+u8 j;
+bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
 /*************	本地函数声明	**************/
-void	PWM_config(void);
+void	PWM_config(u16 Fre);
 void	UART_config(void);
 void    GPIO_config(void);
+void	controlbeep(void);
 /*************  外部函数和变量声明 *****************/
 
 
@@ -45,18 +55,44 @@ void main(void)
 	CKCON = 0;      //提高访问XRAM速度
 
 	GPIO_config();
+	GPIO_INT_Config(GPIO_P0, INT_FALL, Pin0 | Pin1 | Pin2 | Pin3);	
+	GPIO_INT_Config(GPIO_P2, INT_FALL, Pin4 | Pin5 | Pin6 | Pin7);
+	//普通IO中断配置函数, 中断模式(只取其一): INT_FALL, INT_RISE, INT_LOW, INT_HIGH. 分别是 上升沿 下降沿 低电平  高电平 中断.
 	P35 = 0;		
 	UART_config();
-	PWM_config();
+	PWM_config(45627);
 	EA = 1;
 
 	printf("STC32G AD to UART Test Programme!\r\n");	//UART发送一个字符串
+	one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
 	
 	while(1)
 	{
-		delay_ms(1000);
-		P34 = ~P34;	//输出低驱动
-		printf("STC32G AD to UART Test Programme!\r\n");	//UART发送一个字符串
+		delay_ms(200);
+//		P34 = ~P34;	//输出低驱动
+//		printf("STC32G AD to UART Test Programme!\r\n");	//UART发送一个字符串
+//		PWMA_Duty.PWM1_Duty = 128;
+//		UpdatePwm(PWMA, &PWMA_Duty);
+		
+//		printf("P03:%hd\r\n",P03);
+//		printf("P02:%hd\r\n",P02);
+//		printf("P01:%hd\r\n",P01);
+//		printf("P00:%hd\r\n",P00);
+//		printf("P27:%hd\r\n",P27);
+//		printf("P26:%hd\r\n",P26);
+//		printf("P25:%hd\r\n",P25);
+//		printf("P24:%hd\r\n",P24);
+//		for(i=0;i<=3;i++)
+//			{
+//			for(j=0;j<=6;j++)
+//				{
+//				PWM_config(Sound_Fre[i][j]);
+//				printf("i:%hd,j:%hd,Fre:%ld\r\n",i,j,Sound_Fre[i][j]);
+//				delay_ms(5000);
+//				}
+//			}
+		controlbeep();
+		one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
 
 	}
 }
@@ -72,6 +108,10 @@ void GPIO_config(void)
 {
 	P3_MODE_IO_PU(GPIO_Pin_5);			//P3.5设置为准双向口
 	P3_MODE_IO_PU(GPIO_Pin_4);		//P3.4 设置为准双向口
+	
+	P0_MODE_IO_PU(GPIO_Pin_All);			//P0 设置为准双向口
+	P2_MODE_IO_PU(GPIO_Pin_All);			//P2 设置为准双向口
+//（启动PWM功能后输出脚自动设置为推挽输出模式）
 }
 
 /***************  串口初始化函数 *****************/
@@ -89,47 +129,28 @@ void	UART_config(void)
 }
 
 /***************  PWM初始化函数 *****************/
-void	PWM_config(void)
+void	PWM_config(u16 Fre)
 {
 	PWMx_InitDefine		PWMx_InitStructure;
 	
-	PWMA_Duty.PWM1_Duty = 128;
-	PWMA_Duty.PWM2_Duty = 256;
-	PWMA_Duty.PWM3_Duty = 512;
-	PWMA_Duty.PWM4_Duty = 1024;
+	PWMx_InitStructure.PWM_Period   = Fre;							//周期时间,   0~65535
+	PWMA_Duty.PWM1_Duty = PWMx_InitStructure.PWM_Period / 2;
 
 	PWMx_InitStructure.PWM_Mode    =	CCMRn_PWM_MODE1;	//模式,		CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_INVALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
 	PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM1_Duty;	//PWM占空比时间, 0~Period
-	PWMx_InitStructure.PWM_EnoSelect   = ENO1P | ENO1N;	//输出通道选择,	ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
+	PWMx_InitStructure.PWM_EnoSelect   = ENO1P;
 	PWM_Configuration(PWM1, &PWMx_InitStructure);				//初始化PWM1
 
-	PWMx_InitStructure.PWM_Mode    =	CCMRn_PWM_MODE1;	//模式,		CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_INVALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-	PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM2_Duty;	//PWM占空比时间, 0~Period
-	PWMx_InitStructure.PWM_EnoSelect   = ENO2P | ENO2N;	//输出通道选择,	ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-	PWM_Configuration(PWM2, &PWMx_InitStructure);				//初始化PWM2
-
-	PWMx_InitStructure.PWM_Mode    =	CCMRn_PWM_MODE1;	//模式,		CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_INVALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-	PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM3_Duty;	//PWM占空比时间, 0~Period
-	PWMx_InitStructure.PWM_EnoSelect   = ENO3P | ENO3N;	//输出通道选择,	ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-	PWM_Configuration(PWM3, &PWMx_InitStructure);				//初始化PWM3
-
-	PWMx_InitStructure.PWM_Mode    =	CCMRn_PWM_MODE1;	//模式,		CCMRn_FREEZE,CCMRn_MATCH_VALID,CCMRn_MATCH_INVALID,CCMRn_ROLLOVER,CCMRn_FORCE_INVALID,CCMRn_FORCE_VALID,CCMRn_PWM_MODE1,CCMRn_PWM_MODE2
-	PWMx_InitStructure.PWM_Duty    = PWMA_Duty.PWM4_Duty;	//PWM占空比时间, 0~Period
-	PWMx_InitStructure.PWM_EnoSelect   = ENO4P | ENO4N;	//输出通道选择,	ENO1P,ENO1N,ENO2P,ENO2N,ENO3P,ENO3N,ENO4P,ENO4N / ENO5P,ENO6P,ENO7P,ENO8P
-	PWM_Configuration(PWM4, &PWMx_InitStructure);				//初始化PWM4
-
-	PWMx_InitStructure.PWM_Period   = 2047;							//周期时间,   0~65535
 	PWMx_InitStructure.PWM_DeadTime = 0;								//死区发生器设置, 0~255
 	PWMx_InitStructure.PWM_MainOutEnable= ENABLE;				//主输出使能, ENABLE,DISABLE
 	PWMx_InitStructure.PWM_CEN_Enable   = ENABLE;				//使能计数器, ENABLE,DISABLE
 	PWM_Configuration(PWMA, &PWMx_InitStructure);				//初始化PWM通用寄存器,  PWMA,PWMB
-
-	PWM1_USE_P60P61();
-	PWM2_USE_P62P63();
-	PWM3_USE_P64P65();
-	PWM4_USE_P66P67();
+	
+	
+	PWM1_USE_P10P11();
 
 	NVIC_PWM_Init(PWMA,DISABLE,Priority_0);
+
 }
 
 

@@ -330,6 +330,11 @@
               <FilePath>.\usr\main.c</FilePath>
             </File>
             <File>
+              <FileName>gpio_interrupt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\gpio_interrupt.c</FilePath>
+            </File>
+            <File>
               <FileName>config.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\library\config.h</FilePath>
@@ -338,6 +343,16 @@
               <FileName>Type_def.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\library\Type_def.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_interrupt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\usr\gpio_interrupt.h</FilePath>
+            </File>
+            <File>
+              <FileName>ebf_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\ebf_control.c</FilePath>
             </File>
           </Files>
         </Group>

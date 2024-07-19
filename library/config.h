@@ -30,5 +30,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+extern bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
+extern u16 code Sound_Fre[4][7];
+
+extern void	PWM_config(u16 Fre);
 
 #endif
