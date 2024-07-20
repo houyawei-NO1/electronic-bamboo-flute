@@ -28,7 +28,7 @@ PWMx_Duty PWMA_Duty;
 bit PWM1_Flag;
 u8 i;
 u8 j;
-bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
+//bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
 /*************	本地函数声明	**************/
 void	PWM_config(u16 Fre);
 void	UART_config(void);
@@ -55,8 +55,8 @@ void main(void)
 	CKCON = 0;      //提高访问XRAM速度
 
 	GPIO_config();
-	GPIO_INT_Config(GPIO_P0, INT_FALL, Pin0 | Pin1 | Pin2 | Pin3);	
-	GPIO_INT_Config(GPIO_P2, INT_FALL, Pin4 | Pin5 | Pin6 | Pin7);
+//	GPIO_INT_Config(GPIO_P0, INT_FALL, Pin0 | Pin1 | Pin2 | Pin3);	
+//	GPIO_INT_Config(GPIO_P2, INT_FALL, Pin4 | Pin5 | Pin6 | Pin7);
 	//普通IO中断配置函数, 中断模式(只取其一): INT_FALL, INT_RISE, INT_LOW, INT_HIGH. 分别是 上升沿 下降沿 低电平  高电平 中断.
 	P35 = 0;		
 	UART_config();
@@ -64,7 +64,7 @@ void main(void)
 	EA = 1;
 
 	printf("STC32G AD to UART Test Programme!\r\n");	//UART发送一个字符串
-	one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
+//	one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
 	
 	while(1)
 	{
@@ -74,14 +74,7 @@ void main(void)
 //		PWMA_Duty.PWM1_Duty = 128;
 //		UpdatePwm(PWMA, &PWMA_Duty);
 		
-//		printf("P03:%hd\r\n",P03);
-//		printf("P02:%hd\r\n",P02);
-//		printf("P01:%hd\r\n",P01);
-//		printf("P00:%hd\r\n",P00);
-//		printf("P27:%hd\r\n",P27);
-//		printf("P26:%hd\r\n",P26);
-//		printf("P25:%hd\r\n",P25);
-//		printf("P24:%hd\r\n",P24);
+		
 //		for(i=0;i<=3;i++)
 //			{
 //			for(j=0;j<=6;j++)
@@ -92,7 +85,7 @@ void main(void)
 //				}
 //			}
 		controlbeep();
-		one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
+//		one_f=0,two_f=0,three_f=0,four_f=0,five_f=0,six_f=0,low_f=0,high_f=0;
 
 	}
 }

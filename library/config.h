@@ -30,9 +30,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
+//extern bit one_f,two_f,three_f,four_f,five_f,six_f,low_f,high_f;
 extern u16 code Sound_Fre[4][7];
 
 extern void	PWM_config(u16 Fre);
 
+sbit one_f=P2^5;
+sbit two_f=P2^7;
+sbit three_f=P0^1;
+sbit four_f=P2^4;
+sbit five_f=P2^6;
+sbit six_f=P0^0;
+sbit low_f=P0^3;
+sbit high_f=P0^2;
 #endif
