@@ -46,12 +46,12 @@ void	controlbeep(void)
 		}
 	if( (low_f==1) && (high_f==1) && (six_f==0) && (five_f==0) && (four_f==0) && (three_f==0) && (two_f==0) && (one_f==1))//zhongyin la
 		{
-		PWM_config(Sound_Fre[0][5]);
+		PWM_config(Sound_Fre[1][5]);
 		printf("yin 6\r\n");
 		}
 	if( (low_f==1) && (high_f==1) && (six_f==0) && (five_f==0) && (four_f==0) && (three_f==0) && (two_f==1) && (one_f==1)) //zhongyin si
 		{
-		PWM_config(Sound_Fre[0][6]);
+		PWM_config(Sound_Fre[1][6]);
 		printf("yin 7\r\n");
 		}
 	

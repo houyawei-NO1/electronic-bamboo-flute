@@ -1,4 +1,4 @@
-L251 LINKER/LOCATER V4.66.93.0                                                          07/19/2024  17:42:00  PAGE 1
+L251 LINKER/LOCATER V4.66.93.0                                                          07/20/2024  16:19:21  PAGE 1
 
 
 L251 LINKER/LOCATER V4.66.93.0, INVOKED BY:
@@ -67,7 +67,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00001AH.0 00001FH.7 000006H.0 ---    ---      **GAP**
 000020H.0 000020H.1 000000H.2 BIT    UNIT     BIT            ?BI?STC32G_UART_ISR
 000020H.2 000020H.2 000000H.1 BIT    UNIT     BIT            ?BI?MAIN
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 2
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 2
 
 
 000020H.3 000020H   000000H.5 ---    ---      **GAP**
@@ -135,7 +135,7 @@ FF19BCH   FF19DFH   000024H   BYTE   UNIT     HCONST         ?HC?MAIN
 * * * * * * * * *   R E M O V E D     S E G M E N T S   * * * * * * * *
    *DEL*:           00008EH   BYTE   INSEG    CODE           ?PR?GPIO_INT_CONFIG?GPIO_INTERRUPT
    *DEL*:           000256H   BYTE   INSEG    CODE           ?PR?GPIO_INILIZE?STC32G_GPIO
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 3
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 3
 
 
    *DEL*:           000016H   BYTE   INSEG    CODE           ?PR?PRINTSTRING1?STC32G_UART
@@ -203,7 +203,7 @@ FUNCTION/MODULE                         EDATA_GROUP
 P0INT_ISR/gpio_interrupt                ----- -----
   +--> delay_ms/STC32G_Delay
 
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 4
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 4
 
 
 delay_ms/STC32G_Delay                   ----- -----
@@ -271,7 +271,7 @@ main/main                               ----- -----
   +--> controlbeep/ebf_control
 
 GPIO_config/main                        ----- -----
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 5
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 5
 
 
 
@@ -339,7 +339,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Objects\electronic-bamboo-flute (main)
 *SFR* 000000DEH   DATA     BYTE      ADCCFG
 *SFR* 000000EFH   DATA     BYTE      AUXINTIF
 *SFR* 0000008EH   DATA     BYTE      AUXR
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 6
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 6
 
 
 *SFR* 00000097H   DATA     BYTE      AUXR2
@@ -407,7 +407,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Objects\electronic-bamboo-flute (main)
 *DEL*:00000000H   CODE     ---       NVIC_DMA_ADC_Init
 *DEL*:00000000H   CODE     ---       NVIC_DMA_I2CR_Init
 *DEL*:00000000H   CODE     ---       NVIC_DMA_I2CT_Init
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 7
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 7
 
 
 *DEL*:00000000H   CODE     ---       NVIC_DMA_LCM_Init
@@ -475,7 +475,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF15A7H   CODE     ---       P3INT_ISR
 *SFR* 000000B2H   DATA     BYTE      P3M0
 *SFR* 000000B1H   DATA     BYTE      P3M1
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 8
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 8
 
 
 *SFR* 000000C0H   DATA     BYTE      P4
@@ -543,7 +543,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Objects\electronic-bamboo-flute (main)
 *DEL*:00000000H   CODE     ---       PrintString3
 *DEL*:00000000H   CODE     ---       PrintString4
 *SFR* 000000DFH.2 DATA     BIT       PRTC
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 9
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 9
 
 
 *SFR* 000000EEH.2 DATA     BIT       PRTCH
@@ -611,7 +611,7 @@ PUBLIC SYMBOLS OF MODULE:  .\Objects\electronic-bamboo-flute (main)
 *SFR* 000000CDH   DATA     BYTE      SPSTAT
 *SFR* 00000089H.6 DATA     BIT       T1_CT
 *SFR* 0000008EH.6 DATA     BIT       T1x12
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 10
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 10
 
 
 *SFR* 0000008EH.3 DATA     BIT       T2_CT
@@ -679,7 +679,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00000094H   SFRSYM    DATA     BYTE      P0M0
       000000D0H   SFRSYM    DATA     BYTE      PSW
       000000BAH.7 SFRSYM    DATA     BIT       EAXFR
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 11
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 11
 
 
       0000009DH   SFRSYM    DATA     BYTE      IRCBAND
@@ -747,7 +747,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF18BDH   LINE      CODE     ---       #63
       00FF18C4H   LINE      CODE     ---       #64
       00FF18C6H   LINE      CODE     ---       #66
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 12
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 12
 
 
       00FF18D1H   LINE      CODE     ---       #69
@@ -815,7 +815,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000FDH   SFRSYM    DATA     BYTE      S4CON
       00000080H.2 SFRSYM    DATA     BIT       high_f
       000000ACH   SFRSYM    DATA     BYTE      S3CON
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 13
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 13
 
 
       0000009AH   SFRSYM    DATA     BYTE      S2CON
@@ -883,7 +883,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000A0H.7 SFRSYM    DATA     BIT       two_f
       00000080H.0 SFRSYM    DATA     BIT       six_f
       000000DEH   SFRSYM    DATA     BYTE      ADCCFG
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 14
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 14
 
 
       00000080H.3 SFRSYM    DATA     BIT       low_f
@@ -951,7 +951,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF154EH   BLOCK     CODE     NEAR LAB  LVL=1
       R10         REGSYM    ---      BYTE      i
       ---         BLOCKEND  ---      ---       LVL=1
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 15
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 15
 
 
       00FF1546H   LINE      CODE     ---       #156
@@ -1019,7 +1019,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       ---         BLOCKEND  ---      ---       LVL=0
 
       00FF15A7H   BLOCK     CODE     ---       LVL=0
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 16
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 16
 
 
       00FF15AFH   BLOCK     CODE     NEAR LAB  LVL=1
@@ -1087,7 +1087,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF1659H   LINE      CODE     ---       #345
       00FF165EH   LINE      CODE     ---       #347
       00FF1660H   LINE      CODE     ---       #348
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 17
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 17
 
 
       ---         BLOCKEND  ---      ---       LVL=0
@@ -1155,7 +1155,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       ---         BLOCKEND  ---      ---       LVL=0
 
       00FF16CAH   BLOCK     CODE     ---       LVL=0
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 18
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 18
 
 
       00FF16D2H   BLOCK     CODE     NEAR LAB  LVL=1
@@ -1223,7 +1223,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000BCH   SFRSYM    DATA     BYTE      ADC_CONTR
       000000E7H   SFRSYM    DATA     BYTE      CMPCR2
       000000E6H   SFRSYM    DATA     BYTE      CMPCR1
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 19
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 19
 
 
       000000A0H.7 SFRSYM    DATA     BIT       two_f
@@ -1291,7 +1291,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF0A34H   LINE      CODE     ---       #52
       00FF0A68H   LINE      CODE     ---       #54
       00FF0A76H   LINE      CODE     ---       #55
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 20
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 20
 
 
       00FF0A81H   LINE      CODE     ---       #56
@@ -1359,7 +1359,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000E7H   SFRSYM    DATA     BYTE      CMPCR2
       000000E6H   SFRSYM    DATA     BYTE      CMPCR1
       000000DEH   SFRSYM    DATA     BYTE      ADCCFG
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 21
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 21
 
 
       000000B8H   SFRSYM    DATA     BYTE      IP
@@ -1427,7 +1427,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000E7H   SFRSYM    DATA     BYTE      CMPCR2
       000000E6H   SFRSYM    DATA     BYTE      CMPCR1
       000000DEH   SFRSYM    DATA     BYTE      ADCCFG
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 22
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 22
 
 
       000000B8H   SFRSYM    DATA     BYTE      IP
@@ -1495,7 +1495,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000FEH   SFRSYM    DATA     BYTE      S4BUF
       000000ADH   SFRSYM    DATA     BYTE      S3BUF
       000000DDH.5 SFRSYM    DATA     BIT       T4x12
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 23
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 23
 
 
       0000009BH   SFRSYM    DATA     BYTE      S2BUF
@@ -1563,7 +1563,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000DDH.2 SFRSYM    DATA     BIT       T3_CT
 
       00FF1036H   BLOCK     CODE     ---       LVL=0
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 24
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 24
 
 
       R10         REGSYM    ---      BYTE      UARTx
@@ -1631,7 +1631,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF1194H   LINE      CODE     ---       #129
       00FF11A3H   LINE      CODE     ---       #130
       00FF11A5H   LINE      CODE     ---       #131
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 25
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 25
 
 
       00FF11A8H   LINE      CODE     ---       #132
@@ -1699,7 +1699,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF1325H   LINE      CODE     ---       #210
       00FF1328H   LINE      CODE     ---       #211
       00FF132BH   LINE      CODE     ---       #212
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 26
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 26
 
 
       00FF132EH   LINE      CODE     ---       #213
@@ -1767,7 +1767,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000B7H   SFRSYM    DATA     BYTE      IPH
       000000CDH   SFRSYM    DATA     BYTE      SPSTAT
       000000DDH   SFRSYM    DATA     BYTE      T4T3M
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 27
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 27
 
 
       000000C1H   SFRSYM    DATA     BYTE      WDT_CONTR
@@ -1835,7 +1835,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF151BH   LINE      CODE     ---       #50
       00FF152FH   LINE      CODE     ---       #51
       00FF1535H   LINE      CODE     ---       #52
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 28
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 28
 
 
       00FF1535H   LINE      CODE     ---       #54
@@ -1903,7 +1903,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF1376H   PUBLIC    CODE     ---       NVIC_PWM_Init
       000000F9H.3 SFRSYM    DATA     BIT       PLINH
       000000D0H   SFRSYM    DATA     BYTE      PSW
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 29
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 29
 
 
       000000B6H.5 SFRSYM    DATA     BIT       PCMPH
@@ -1971,7 +1971,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000B7H.2 SFRSYM    DATA     BIT       PX1H
       000000F1H.4 SFRSYM    DATA     BIT       PCAN2L
       000000B7H.0 SFRSYM    DATA     BIT       PX0H
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 30
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 30
 
 
       000000EEH.1 SFRSYM    DATA     BIT       PS4H
@@ -2039,7 +2039,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF18ABH   LINE      CODE     ---       #237
       ---         BLOCKEND  ---      ---       LVL=0
       R7          REGSYM    ---      BYTE      State
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 31
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 31
 
 
       R6          REGSYM    ---      BYTE      Priority
@@ -2107,7 +2107,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       R3          REGSYM    ---      BYTE      Priority
       R10         REGSYM    ---      BYTE      Bus_Priority
       R9          REGSYM    ---      BYTE      State
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 32
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 32
 
 
       R3          REGSYM    ---      BYTE      Priority
@@ -2175,7 +2175,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       000000CEH   SFRSYM    DATA     BYTE      SPCTL
       000000F8H   SFRSYM    DATA     BYTE      P7
       000000E8H   SFRSYM    DATA     BYTE      P6
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 33
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 33
 
 
       000000C8H   SFRSYM    DATA     BYTE      P5
@@ -2243,7 +2243,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       REG=7       REGSYM    ---      ---       PWMx
       00FF0166H   LINE      CODE     ---       #23
       00FF016AH   LINE      CODE     ---       #25
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 34
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 34
 
 
       00FF0173H   LINE      CODE     ---       #27
@@ -2311,7 +2311,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF03A0H   LINE      CODE     ---       #117
       00FF03B3H   LINE      CODE     ---       #118
       00FF03B6H   LINE      CODE     ---       #119
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 35
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 35
 
 
       00FF03B6H   LINE      CODE     ---       #121
@@ -2379,7 +2379,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\electronic-bamboo-flute (main)
       00FF0636H   LINE      CODE     ---       #217
       00FF063EH   LINE      CODE     ---       #218
       00FF064EH   LINE      CODE     ---       #219
-L251 LINKER/LOCATER V4.66.93.0                                                        07/19/2024  17:42:00  PAGE 36
+L251 LINKER/LOCATER V4.66.93.0                                                        07/20/2024  16:19:21  PAGE 36
 
 
       00FF0650H   LINE      CODE     ---       #222

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ebf_control                                                        19/07/24  17:41:59  PAGE 1   
+C251 COMPILER V5.60.0,  ebf_control                                                        20/07/24  16:19:20  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ebf_control
@@ -65,15 +65,15 @@ stmt  level    source
    47   1              if( (low_f==1) && (high_f==1) && (six_f==0) && (five_f==0) && (four_f==0) && (three_f==0) && (two_f==0) 
              -&& (one_f==1))//zhongyin la
    48   1                      {
-   49   2                      PWM_config(Sound_Fre[0][5]);
-C251 COMPILER V5.60.0,  ebf_control                                                        19/07/24  17:41:59  PAGE 2   
+   49   2                      PWM_config(Sound_Fre[1][5]);
+C251 COMPILER V5.60.0,  ebf_control                                                        20/07/24  16:19:20  PAGE 2   
 
    50   2                      printf("yin 6\r\n");
    51   2                      }
    52   1              if( (low_f==1) && (high_f==1) && (six_f==0) && (five_f==0) && (four_f==0) && (three_f==0) && (two_f==1) 
              -&& (one_f==1)) //zhongyin si
    53   1                      {
-   54   2                      PWM_config(Sound_Fre[0][6]);
+   54   2                      PWM_config(Sound_Fre[1][6]);
    55   2                      printf("yin 7\r\n");
    56   2                      }
    57   1              
@@ -134,7 +134,7 @@ stmt  level    source
   104   1      //              printf("three_f:%hd\r\n",three_f);
   105   1      //              printf("two_f:%hd\r\n",two_f);
   106   1      //              printf("one_f:%hd\r\n",one_f);
-C251 COMPILER V5.60.0,  ebf_control                                                        19/07/24  17:41:59  PAGE 3   
+C251 COMPILER V5.60.0,  ebf_control                                                        20/07/24  16:19:20  PAGE 3   
 
   107   1                      
   108   1      }

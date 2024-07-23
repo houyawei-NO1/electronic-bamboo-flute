@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               19/07/24  17:41:59  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               20/07/24  16:19:20  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -66,7 +66,7 @@ stmt  level    source
    56   1      
    57   1              GPIO_config();
    58   1      //      GPIO_INT_Config(GPIO_P0, INT_FALL, Pin0 | Pin1 | Pin2 | Pin3);  
-C251 COMPILER V5.60.0,  main                                                               19/07/24  17:41:59  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               20/07/24  16:19:20  PAGE 2   
 
    59   1      //      GPIO_INT_Config(GPIO_P2, INT_FALL, Pin4 | Pin5 | Pin6 | Pin7);
    60   1              //普通IO中断配置函数, 中断模式(只取其一): INT_FALL, INT_RISE, INT_LOW, INT_HIGH. 分别是 上升沿 下降沿 低
@@ -134,7 +134,7 @@ stmt  level    source
   119   1              NVIC_UART1_Init(ENABLE,Priority_1);             //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0,Priority_1,Pr
              -iority_2,Priority_3
   120   1      
-C251 COMPILER V5.60.0,  main                                                               19/07/24  17:41:59  PAGE 3   
+C251 COMPILER V5.60.0,  main                                                               20/07/24  16:19:20  PAGE 3   
 
   121   1              UART1_SW(UART1_SW_P30_P31);             //UART1_SW_P30_P31,UART1_SW_P36_P37,UART1_SW_P16_P17,UART1_SW_P43_P44
   122   1      }
